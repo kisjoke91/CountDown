@@ -1,11 +1,11 @@
 /*******************************************************************************
-
-Author:		Chaos Developing
-Date:		2018-07-23
-Compiler:	avr-gcc
-Info:		keypad driver
-
-*******************************************************************************/
+ 
+ Author:      Chaos Developing
+ Date:        2018-07-23
+ Compiler:    avr-gcc
+ Info:        HD44780 driver
+ 
+ *******************************************************************************/
 
 #include "lcd.h"
 
@@ -23,7 +23,7 @@ static void lcd_enable()
 static void lcd_out( uint8_t data )
 {
     data &= 0xF0;                       // felső 4 Bit maszkolása
-
+    
     LCD_PORT &= ~(0xF0>>(4-LCD_DB));    // maszk törlés
     LCD_PORT |= (data>>(4-LCD_DB));     // Bitek értékadása
     lcd_enable();
@@ -34,50 +34,50 @@ void lcd_init( void )
 {
     // Használt PIN-ek kimenetre állítása
     uint8_t pins = (0x0F << LCD_DB) |           // 4 adatvezeték
-                   (1<<LCD_RS) |                // R/S vezeték
-                   (1<<LCD_EN);                 // Enable vezeték
+    (1<<LCD_RS) |                // R/S vezeték
+    (1<<LCD_EN);                 // Enable vezeték
     LCD_DDR |= pins;
-
+    
     // Minden kimenet 0-ra állítása
     LCD_PORT &= ~pins;
-
+    
     // Vár az LCD feléledésére
     _delay_ms( LCD_BOOTUP_MS );
-
+    
     // Soft-Reset 3x egymás után.
     lcd_out( LCD_SOFT_RESET );
     _delay_ms( LCD_SOFT_RESET_MS1 );
-
+    
     lcd_enable();
     _delay_ms( LCD_SOFT_RESET_MS2 );
-
+    
     lcd_enable();
     _delay_ms( LCD_SOFT_RESET_MS3 );
-
+    
     // 4-bites mód kiválasztása
     lcd_out( LCD_SET_FUNCTION |
-             LCD_FUNCTION_4BIT );
+            LCD_FUNCTION_4BIT );
     _delay_ms( LCD_SET_4BITMODE_MS );
-
+    
     // 4-bites mód / 2 sor / 5x7
     lcd_command( LCD_SET_FUNCTION |
-                 LCD_FUNCTION_4BIT |
-                 LCD_FUNCTION_2LINE |
-                 LCD_FUNCTION_5X7 );
-
+                LCD_FUNCTION_4BIT |
+                LCD_FUNCTION_2LINE |
+                LCD_FUNCTION_5X7 );
+    
     // Kijelző be / Kurzor ki / Villogás ki
     lcd_command( LCD_SET_DISPLAY |
-                 LCD_DISPLAY_ON |
-                 LCD_CURSOR_OFF |
-                 LCD_BLINKING_OFF);
-
+                LCD_DISPLAY_ON |
+                LCD_CURSOR_OFF |
+                LCD_BLINKING_OFF);
+    
     // Kurzor növekvő / Nincs görgetés
     lcd_command( LCD_SET_ENTRY |
-                 LCD_ENTRY_INCREASE |
-                 LCD_ENTRY_NOSHIFT );
- 	// Kijelző törlése
+                LCD_ENTRY_INCREASE |
+                LCD_ENTRY_NOSHIFT );
+    // Kijelző törlése
     lcd_clear();
-
+    
     const uint8_t aa[] = {0x02,0x04,0x0E,0x01,0x0F,0x11,0x0F,0x00};    //á
     const uint8_t ee[] = {0x02,0x04,0x0E,0x11,0x1F,0x10,0x0E,0x00};    //é
     const uint8_t ii[] = {0x02,0x04,0x0C,0x04,0x04,0x04,0x0E,0x00};    //í
@@ -86,7 +86,7 @@ void lcd_init( void )
     const uint8_t u2[] = {0x0A,0x00,0x11,0x11,0x11,0x13,0x0D,0x00};    //ü
     const uint8_t u3[] = {0x05,0x0A,0x11,0x11,0x11,0x13,0x0D,0x00};    //ű
     const uint8_t o2[] = {0x05,0x0A,0x0E,0x11,0x11,0x11,0x0E,0x00};    //ő
-
+    
     lcd_generatechar(0, aa);
     lcd_generatechar(1, ee);
     lcd_generatechar(2, ii);
@@ -95,7 +95,7 @@ void lcd_init( void )
     lcd_generatechar(5, u2);
     lcd_generatechar(6, u3);
     lcd_generatechar(7, o2);
-
+    
 }
 
 
@@ -103,10 +103,10 @@ void lcd_init( void )
 void lcd_data( uint8_t data )
 {
     LCD_PORT |= (1<<LCD_RS);    // RS 1
-
+    
     lcd_out( data );            // elsőzör a felső,
     lcd_out( data<<4 );         // majd az alsó 4 Bit küldése
-
+    
     _delay_us( LCD_WRITEDATA_US );
     _delay_us( LCD_WRITEDATA_US );
 }
@@ -116,10 +116,10 @@ void lcd_data( uint8_t data )
 void lcd_command( uint8_t data )
 {
     LCD_PORT &= ~(1<<LCD_RS);    // RS 0
-
+    
     lcd_out( data );             // zuerst a felső,
     lcd_out( data<<4 );          // majd az alsó 4 Bit küldése
-
+    
     _delay_us( LCD_COMMAND_US );
     _delay_us( LCD_COMMAND_US );
 }
@@ -147,29 +147,29 @@ void lcd_home( void )
 void lcd_setcursor( uint8_t row, uint8_t column )
 {
     uint8_t data;
-
+    
     switch (row)
     {
         case 1:    // 1. sor
             data = LCD_SET_DDADR + LCD_DDADR_LINE1 + column;
             break;
-
+            
         case 2:    // 2. sor
             data = LCD_SET_DDADR + LCD_DDADR_LINE2 + column;
             break;
-
+            
         case 3:    // 3. sor
             data = LCD_SET_DDADR + LCD_DDADR_LINE3 + column;
             break;
-
+            
         case 4:    // 4. sor
             data = LCD_SET_DDADR + LCD_DDADR_LINE4 + column;
             break;
-
+            
         default:
             return;  // Rossz sor esetén
     }
-
+    
     lcd_command( data );
 }
 
@@ -189,13 +189,13 @@ void lcd_generatechar( uint8_t code, const uint8_t *data )
 {
     // Karakter címének beállítása
     lcd_command( LCD_SET_CGADR | (code<<3) );
-
+    
     // Bitminta átvitele
     for ( uint8_t i=0; i<8; i++ )
     {
         lcd_data( data[i] );
     }
-
+    
     lcd_command(LCD_SET_DDADR); //DRAM auf 0 setzen
 }
 
@@ -230,3 +230,4 @@ void lcd_clearchar(unsigned char row, unsigned char column)
     lcd_setcursor(row,column);
     lcd_string(" ");
 }
+

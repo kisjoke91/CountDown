@@ -1,11 +1,11 @@
 /*******************************************************************************
-
-Author:		Chaos Developing
-Date:		2018-07-23
-Compiler:	avr-gcc
-Info:		keypad driver
-
-*******************************************************************************/
+ 
+ Author:      Chaos Developing
+ Date:        2018-07-23
+ Compiler:    avr-gcc
+ Info:        Clock
+ 
+ *******************************************************************************/
 
 #ifndef _CLOCK_H_
 #define _CLOCK_H_
@@ -16,7 +16,7 @@ Info:		keypad driver
 #include <avr/interrupt.h>
 
 #define CLOCK_HOUR_S    3600
-#define CLOCK_MIN_S    60
+#define CLOCK_MIN_S     60
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -38,3 +38,5 @@ unsigned long int clock_get();
 ////////////////////////////////////////////////////////////////////////////////
 
 #endif
+
+

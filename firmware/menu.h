@@ -1,11 +1,11 @@
 /*******************************************************************************
-
-Author:		Chaos Developing
-Date:		2018-07-23
-Compiler:	avr-gcc
-Info:		keypad driver
-
-*******************************************************************************/
+ 
+ Author:      Chaos Developing
+ Date:        2018-07-23
+ Compiler:    avr-gcc
+ Info:        Menu controller
+ 
+ *******************************************************************************/
 
 #ifndef _MENU_H_
 #define _MENU_H_
@@ -17,3 +17,4 @@ void menu_run();
 void menu_printtime(unsigned long int secs);
 
 #endif
+

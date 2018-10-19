@@ -1,11 +1,11 @@
 /*******************************************************************************
-
-Author:		Chaos Developing
-Date:		2018-07-23
-Compiler:	avr-gcc
-Info:		Keypad driver
-
-*******************************************************************************/
+ 
+ Author:      Chaos Developing
+ Date:        2018-07-23
+ Compiler:    avr-gcc
+ Info:        Keypad driver
+ 
+ *******************************************************************************/
 
 #ifndef _KEYS_H_
 #define _KEYS_H_
@@ -14,15 +14,15 @@ Info:		Keypad driver
 #include <util/delay.h>
 
 // Applied PORT for the key inputs and alarm output
-#define KEY_IO_PORT		PORTB
-#define KEY_IO_DDR		DDRB
-#define KEY_IO_PIN		PINB
+#define KEY_IO_PORT        PORTB
+#define KEY_IO_DDR         DDRB
+#define KEY_IO_PIN         PINB
 
 // Definition of input pins
-#define	KEY_ESC			1
-#define	KEY_DOWN		2
-#define	KEY_UP		    3
-#define KEY_OK			4
+#define    KEY_ESC         1
+#define    KEY_DOWN        2
+#define    KEY_UP          3
+#define    KEY_OK          4
 
 // key_get() return values
 typedef enum Key
@@ -35,10 +35,10 @@ typedef enum Key
 }Key;
 
 // defines the deprell time intervall
-#define KEY_PRELL_MS	250
+#define KEY_PRELL_MS    250
 
 // definition of alarm output pins
-#define ALARM_OUT		0
+#define ALARM_OUT       0
 
 
 //=============================== Handle routins ================================
@@ -56,3 +56,6 @@ void key_setAlarm(void);
 void key_clearAlaram(void);
 
 #endif
+
+
+

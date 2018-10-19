@@ -1,11 +1,11 @@
 /*******************************************************************************
-
-Author:		Chaos Developing
-Date:		2018-07-23
-Compiler:	avr-gcc
-Info:		keypad driver
-
-*******************************************************************************/
+ 
+ Author:      Chaos Developing
+ Date:        2018-07-23
+ Compiler:    avr-gcc
+ Info:        HD44780 driver
+ 
+ *******************************************************************************/
 
 #ifndef _LCD_H_
 #define _LCD_H_
@@ -21,9 +21,9 @@ Info:		keypad driver
 
 
 /*========================= Az LCD lábkiosztása ================================
-A kijelző minden lába ugyanarra a portra legyen kötve, és a
-4 adat vezeték egymástkövető sorrendben, egymásmellett legyenek.
-*/
+ A kijelző minden lába ugyanarra a portra legyen kötve, és a
+ 4 adat vezeték egymástkövető sorrendben, egymásmellett legyenek.
+ */
 //  LCD DB4-DB7 <-->  PORTD Bit PD0-PD3
 #define LCD_PORT      PORTD
 #define LCD_DDR       DDRD
@@ -53,9 +53,9 @@ A kijelző minden lába ugyanarra a portra legyen kötve, és a
 
 
 /*====================== Az LCD sorainak definiálása ===========================
-Az itt megadott értékek 4 X 16 karatkeres kijelző esetén érvényesek.
-Más kijelző méret esetén a mérethez tartozó értékek kerülnek ide
-*/
+ Az itt megadott értékek 4 X 16 karatkeres kijelző esetén érvényesek.
+ Más kijelző méret esetén a mérethez tartozó értékek kerülnek ide
+ */
 
 #define LCD_DDADR_LINE1         0x00
 #define LCD_DDADR_LINE2         0x40
@@ -90,8 +90,8 @@ void lcd_string( const char *data );
 
 
 /*  Egyéni karakter definiálása
-	A data egy tömbre[7] kell mutasson, ami definiálja a karaktert
-*/
+ A data egy tömbre[7] kell mutasson, ami definiálja a karaktert
+ */
 void lcd_generatechar( uint8_t code, const uint8_t *data );
 
 
@@ -173,3 +173,4 @@ void lcd_decimal(long int number);
 #define LCD_SET_DDADR           0x80
 
 #endif
+
